@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Theme Name: Imperial Sapphire -->
+    <title>Mr. Ayman Kamel - Assessment Platform</title>
+
+    <meta property="og:title" content="🌟 التحدي الأكبر 🚀">
+    <meta property="og:description" content="تحدي غامض ومكثف مصمم لقياس تركيزك الحقيقي. هل تقبل التحدي؟">
+    <meta property="og:image" content="https://dummyimage.com/1200x630/0A1128/FFD700.png&text=Elite+Challenge">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        /* 👑 Imperial Sapphire Theme */
+        :root {
+            --bg-dark: #0A1128;
+            --glass-bg: rgba(10, 17, 40, 0.85);
+            --glass-border: rgba(255, 215, 0, 0.25);
+            --text-main: #F8FAFC;
+            --text-muted: #CBD5E1;
+            --q-font-size: 22px; 
+            --error-color: #EF4444;
+            --success-color: #10B981;
+        }
+
+        body.theme-1 { --accent: #FFD700; --accent-glow: rgba(255, 215, 0, 0.4); } 
+        body.theme-2 { --accent: #00E5FF; --accent-glow: rgba(0, 229, 255, 0.4); } 
+        body.theme-3 { --accent: #F43F5E; --accent-glow: rgba(244, 63, 94, 0.4); } 
+        body.theme-4 { --accent: #10B981; --accent-glow: rgba(16, 185, 129, 0.4); } 
+        body.theme-5 { --accent: #8B5CF6; --accent-glow: rgba(139, 92, 246, 0.4); } 
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+        input { -webkit-user-select: auto !important; -moz-user-select: auto !important; -ms-user-select: auto !important; user-select: auto !important; pointer-events: auto !important;}
+        .review-item *, .explanation-box * { -webkit-user-select: text; user-select: text; }
+
+        body, .glass-panel, .accent-text, .btn, .timer-box, .badge-award, .bg-orb, .vip-phone, header img, .hud-progress-wrapper::before {
+            transition: background 1.5s ease, border-color 1.5s ease, box-shadow 1.5s ease, color 1.5s ease, transform 0.3s ease;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at top right, rgba(255, 215, 0, 0.05), transparent 40%), radial-gradient(circle at bottom left, rgba(0, 229, 255, 0.05), transparent 40%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px 10px;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+            background-image: linear-gradient(rgba(255,215,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,215,0,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .bg-orb {
+            position: fixed; top: -20%; left: -10%; width: 60vw; height: 60vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            z-index: 0; filter: blur(90px); pointer-events: none;
+        }
+
+        .main-container {
+            width: 100%; max-width: 850px; margin: 0 auto;
+            background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-radius: 24px; border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+            display: flex; flex-direction: column; position: relative; z-index: 10;
+        }
+
+        header {
+            padding: 40px 20px 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+            border-bottom: 1px solid var(--glass-border); position: relative;
+        }
+        
+        header img {
+            width: 120px; height: 120px; object-fit: contain; margin-top: 10px;
+            background-color: #FFFFFF !important; padding: 6px; border-radius: 50%;
+            border: 3px solid var(--accent); box-shadow: 0 0 30px var(--accent-glow);
+            transition: 0.3s; cursor: pointer; flex-shrink: 0; aspect-ratio: 1/1;
+        }
+        header img:hover { transform: scale(1.05); }
+        
+        header h1 { font-family: 'Outfit', sans-serif; font-size: 30px; color: var(--text-main); font-weight: 900; margin: 10px 0 0; letter-spacing: 1.5px; direction: ltr;}
+        header .job-title { font-size: 14px; font-weight: 800; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; margin: 0 0 5px; direction: ltr;}
+        header .slogan { 
+            font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600; font-style: italic; 
+            color: var(--accent); letter-spacing: 1px; margin: 5px 0 10px 0; 
+            direction: ltr; unicode-bidi: isolate; display: inline-block;
+        }
+        
+        .vip-phone {
+            background: linear-gradient(135deg, var(--accent), #e6c200); color: var(--bg-dark); font-family: 'Outfit', sans-serif;
+            padding: 8px 28px; border-radius: 30px; font-weight: 900; font-size: 16px; letter-spacing: 2px;
+            box-shadow: 0 5px 15px var(--accent-glow); margin-top: 5px;
+            display: inline-flex; align-items: center; justify-content: center; direction: ltr;
+        }
+
+        .time-controls { position: absolute; top: 20px; left: 20px; display: flex; align-items: center; gap: 8px; z-index: 20; direction: ltr; }
+        .timer-box {
+            background: rgba(0,0,0,0.6); color: var(--text-main); border: 1px solid var(--glass-border);
+            border-radius: 10px; padding: 0 15px; height: 42px; display: flex; align-items: center;
+            font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 17px; letter-spacing: 1px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .time-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-right: 8px; animation: blink 1s infinite; box-shadow: 0 0 8px var(--accent);}
+        .timer-box.danger { color: var(--error-color); border-color: var(--error-color); box-shadow: 0 0 15px rgba(239,68,68,0.4);}
+        .timer-box.danger .time-dot { background: var(--error-color); box-shadow: 0 0 8px var(--error-color);}
+        .hidden-timer { color: transparent !important; border-color: rgba(255,255,255,0.05); box-shadow: none;}
+        
+        .icon-btn {
+            background: rgba(0,0,0,0.5); color: var(--text-muted); border: 1px solid var(--glass-border);
+            border-radius: 10px; width: 42px; height: 42px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; outline: none; transition: 0.3s;
+        }
+        .icon-btn:hover { border-color: var(--accent); color: var(--text-main); background: rgba(255,215,0,0.1); box-shadow: 0 0 15px var(--accent-glow);}
+        
+        .eye-care-controls { position: absolute; top: 20px; right: 20px; display: flex; gap: 8px; z-index: 20;}
+
+        /* --- 🌟 هندسة العبارات التحفيزية 🌟 --- */
+        .cheer-wrapper { position: fixed; top: -120px; right: 20px; z-index: 99999; pointer-events: none; transition: top 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .cheer-wrapper.show { top: 20px; }
+        .cheer-bubble {
+            background: rgba(10, 17, 40, 0.95); backdrop-filter: blur(15px); border-radius: 14px;
+            padding: 16px 22px; display: flex; align-items: center; gap: 18px;
+            border: 1px solid var(--glass-border); border-right: 5px solid var(--accent);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8); direction: rtl;
+        }
+        .cheer-bubble img { 
+            width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--accent); 
+            background: #FFFFFF !important; padding: 4px; flex-shrink: 0; object-fit: contain; aspect-ratio: 1/1;
+            margin: auto 0;
+        }
+        .cheer-text { display: flex; flex-direction: column; width: 100%; min-width: 220px; justify-content: center; gap: 8px;}
+        .cheer-en { font-family:'Outfit', sans-serif; font-size:15px; font-weight:900; color:#fff; direction:ltr; text-align:left;}
+        .cheer-separator { width: 100%; height: 1px; background: rgba(255,255,255,0.15); }
+        .cheer-ar { font-family:'Cairo', sans-serif; font-size:14px; font-weight:800; color:var(--accent); direction:rtl; text-align:right;}
+
+        .shake-active { animation: shake 0.4s both; }
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 50% {transform: translateX(5px);} 75% {transform: translateX(-5px);} }
+        @keyframes blink { 0%, 100% {opacity:1;} 50% {opacity:0.2;} }
+
+        .content-body { padding: 35px 30px; flex: 1; position: relative;}
+
+        #start-screen { text-align: center; }
+        .welcome-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(0,0,0,0.2)); border-radius: 18px; padding: 45px 25px; margin-bottom: 30px;
+            border: 1px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .welcome-card h3 { font-size: 26px; font-weight: 900; color: var(--accent); margin-bottom: 18px; text-shadow: 0 0 15px var(--accent-glow);}
+        .welcome-card p { font-size: 16px; color: var(--text-muted); line-height: 1.8; font-weight: 600;}
+
+        #time-attack-btn {
+            background: rgba(239, 68, 68, 0.05); color: var(--error-color); border: 1px dashed var(--error-color);
+            padding: 16px; border-radius: 12px; cursor: pointer; margin-bottom: 30px; font-weight: 800; font-size: 15px; width: 100%; transition: 0.3s;
+            font-family: 'Outfit', 'Cairo', sans-serif;
+        }
+        #time-attack-btn.active {
+            background: rgba(239, 68, 68, 0.15); color: #fff; border-style: solid;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .avatar-grid { display: flex; justify-content: center; gap: 18px; margin-bottom: 30px; }
+        .avatar-option { font-size: 32px; padding: 12px 18px; background: rgba(0,0,0,0.3); border-radius: 14px; cursor: pointer; border: 1px solid var(--glass-border); transition:0.3s;}
+        .avatar-option.selected { background: rgba(255,215,0,0.1); border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); transform: scale(1.1);}
+
+        .input-group input {
+            width: 100%; padding: 20px; border-radius: 14px; border: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.4); color: var(--accent); font-size: 18px; outline: none; margin-bottom: 25px; font-weight: 800; text-align: center;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5); transition: 0.3s;
+        }
+        .input-group input:focus { border-color: var(--accent); box-shadow: inset 0 2px 10px rgba(0,0,0,0.5), 0 0 15px var(--accent-glow); background: rgba(0,0,0,0.6); }
+        .input-group input::placeholder { color: #64748B; font-weight: 600;}
+
+        #quiz-screen { display: none; }
+        
+        .hud-progress-wrapper {
+            background: linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.5)); border: 1px solid var(--glass-border);
+            border-radius: 14px; padding: 18px 22px 28px 22px; margin-bottom: 35px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        .hud-progress-wrapper::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 5px; height: 100%;
+            background: var(--accent); border-radius: 0 14px 14px 0;
+        }
+        .hud-stats { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; direction: rtl; }
+        .hud-student { font-family: 'Cairo', sans-serif; font-weight: 800; font-size: 17px; color: #fff; display: flex; align-items: center; gap: 12px;}
+        .hud-student .avatar-ring {
+            background: rgba(255,215,0,0.05); border: 2px solid var(--accent);
+            width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 12px var(--accent-glow); font-size: 22px; flex-shrink: 0; aspect-ratio: 1 / 1;
+        }
+        .hud-counter { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 17px; color: var(--accent); letter-spacing: 2px; direction: ltr; flex-shrink: 0;}
+        
+        .hud-bar-container {
+            margin-top: 20px; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; position: relative; z-index: 2; direction: ltr; margin-right: 20px; 
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .hud-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #FFF); width: 0%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 15px var(--accent); position: relative; border-radius: 4px;}
+        .hud-avatar-runner {
+            position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+            width: 40px; height: 40px; background: var(--bg-dark); border: 2px solid var(--accent);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; box-shadow: 0 0 15px var(--accent), inset 0 0 10px rgba(0,0,0,0.5); z-index: 5;
+            transition: border-color 1.5s ease, box-shadow 1.5s ease; aspect-ratio: 1 / 1; line-height: 1;
+        }
+
+        .station-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(0,0,0,0.3)); padding: 35px 30px; border-radius: 18px; margin-bottom: 30px;
+            border: 1px solid var(--glass-border); box-shadow: 0 15px 35px rgba(0,0,0,0.4); position: relative; z-index:10;
+        }
+        
+        .question-text { display: flex; align-items: center; gap: 18px; margin-bottom: 35px; direction: ltr; position: relative; min-height: 48px;}
+        .question-text-wrapper { flex: 1; font-family: 'Outfit', sans-serif; font-size: var(--q-font-size); font-weight: 800; color: #fff; line-height: 1.6; transition: font-size 0.3s;}
+        .tts-btn-container { flex-shrink: 0; align-self: center; display: flex; align-items: center; justify-content: center;}
+        
+        .options-list { display: flex; flex-direction: column; gap: 16px; direction: ltr; opacity: 0; pointer-events: none; transition: opacity 0.5s;}
+        .options-list.show-options { opacity: 1; pointer-events: auto; }
+        
+        .option-item {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
+            border-left: 5px solid var(--text-muted); border-radius: 12px; padding: 18px 22px; 
+            cursor: pointer; display: flex; align-items: center; gap: 18px; transition: 0.2s;
+        }
+        .option-item:hover { background: rgba(255,255,255,0.06); border-left-color: var(--accent); }
+        .option-item.selected { 
+            background: rgba(255,215,0,0.08); border-color: var(--accent); border-left: 6px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .opt-letter {
+            background: rgba(0,0,0,0.6); color: var(--accent); width: 40px; height: 40px; flex-shrink: 0;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 18px; border: 1px solid var(--glass-border); aspect-ratio: 1/1;
+        }
+        .option-item.selected .opt-letter { background: var(--accent); color: var(--bg-dark); border-color: var(--accent);}
+        .opt-text { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 18px; color: #fff; }
+
+        .action-btns { display: flex; justify-content: space-between; gap: 18px; direction: ltr;}
+        .btn {
+            padding: 18px 28px; border-radius: 14px; font-weight: 900; font-size: 16px; border: 1px solid var(--accent);
+            cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: 'Outfit', 'Cairo', sans-serif; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+        }
+        .btn-outline { background: transparent; color: var(--accent); }
+        .btn-outline:hover:not(:disabled) { background: var(--accent); color: var(--bg-dark); box-shadow: 0 0 20px var(--accent-glow);}
+        .btn-prev { min-width: 130px; border-color: rgba(255,255,255,0.15); color: var(--text-muted);}
+        .btn-prev:hover:not(:disabled) { border-color: var(--text-main); color: var(--text-main); background:rgba(255,255,255,0.05); box-shadow:none;}
+        .btn-prev:disabled { opacity: 0.3; cursor: not-allowed;}
+        
+        .btn-solid { background: linear-gradient(135deg, var(--accent), #e6c200); color: var(--bg-dark); box-shadow: 0 5px 20px var(--accent-glow); flex: 1; font-size:18px;}
+        .btn-solid:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--accent-glow);}
+        .btn-solid:disabled { opacity: 0.5; cursor: wait; background: rgba(0,0,0,0.5); color: var(--text-muted); box-shadow: none; border-color:var(--glass-border); transform: none;}
+
+        #result-screen { display: none; direction: rtl; }
+        .score-card { background: rgba(0,0,0,0.3); border-radius: 20px; padding: 45px 25px; text-align: center; margin-bottom: 35px; border: 1px solid var(--glass-border); position: relative;}
+        
+        .score-circle {
+            width: 230px; height: 230px; border-radius: 50%; margin: 0 auto 30px; 
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Outfit', sans-serif; font-size: 60px; font-weight: 900; color: var(--bg-dark); 
+            background: linear-gradient(135deg, var(--accent), #FFF); border: 10px solid var(--bg-dark); 
+            box-shadow: 0 0 60px var(--accent-glow), 0 0 0 4px var(--accent);
+            white-space: nowrap; direction: ltr; letter-spacing: 2px;
+        }
+        #score-percent-text { font-family: 'Outfit', 'Cairo'; font-size: 24px; font-weight: 900; color: var(--accent); margin-bottom: 10px; letter-spacing: 1.5px;}
+        
+        #student-display-name { font-size: 28px; font-weight: 900; color: #fff; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 14px;}
+        .result-avatar { 
+            font-size: 34px; background: rgba(255,215,0,0.05); border: 2px solid var(--accent); box-shadow: 0 0 15px var(--accent-glow);
+            border-radius: 50%; width: 65px; height: 65px; display: inline-flex; align-items: center; justify-content: center;
+            flex-shrink: 0; aspect-ratio: 1/1;
+        }
+        
+        .scratch-container { position: relative; display: inline-block; margin-top: 15px; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--glass-border);}
+        .badge-award { display: inline-block; background: linear-gradient(135deg, var(--accent), #e6c200); color: var(--bg-dark); padding: 22px 35px; font-weight: 900; font-size: 22px; min-width: 300px; min-height: 75px; font-family: 'Outfit', 'Cairo'; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; justify-content: center;}
+        #scratch-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: crosshair; z-index: 5; }
+
+        .result-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 45px;}
+        .result-actions .btn { width: 100%; font-size: 15px; padding: 18px; border-radius: 12px;}
+        .btn-full { grid-column: span 2; }
+        .btn-whatsapp { background: #25D366; color: #fff; border-color: #25D366; }
+        .btn-whatsapp:hover { box-shadow: 0 0 20px rgba(37,211,102,0.4); background:#1EBE5D; color:#fff;}
+        .btn-pdf { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); color: #fff;}
+        .btn-pdf:hover { background: rgba(255,255,255,0.1); color: #fff;}
+
+        .review-item { background: rgba(0,0,0,0.3); border-radius: 14px; padding: 28px; margin-bottom: 25px; text-align: left; direction: ltr; border: 1px solid var(--glass-border);}
+        .review-item.is-correct { border-left: 6px solid var(--success-color); }
+        .review-item.is-wrong { border-left: 6px solid var(--error-color); }
+        .explanation-box { background: rgba(0,0,0,0.5); border-radius: 10px; padding: 20px; margin-top: 18px; border-right: 4px solid var(--accent); display: flex; flex-direction: column; gap: 14px; }
+        .exp-en { direction: ltr; text-align: left; color: var(--text-muted); font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; line-height: 1.6; }
+        .exp-separator { width: 100%; height: 1px; background: rgba(255,255,255,0.05); border-bottom: 1px dashed rgba(255,255,255,0.15); }
+        .exp-ar { direction: rtl; text-align: right; color: #fff; font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 15px; line-height: 1.7; }
+
+        #cheat-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(10, 17, 40, 0.95); z-index: 999999; align-items: center; justify-content: center; backdrop-filter: blur(15px);
+        }
+        .cheat-content {
+            background: #07090F; padding: 45px; border-radius: 20px; text-align: center;
+            max-width: 90%; width: 480px; border: 2px solid var(--error-color); box-shadow: 0 0 50px rgba(239, 68, 68, 0.2);
+        }
+        .cheat-content h1 { color: var(--error-color); font-size: 30px; margin-bottom: 18px; font-weight: 900;}
+        .cheat-content p { color: var(--text-main); font-size: 17px; line-height: 1.7; font-weight: 600; margin-bottom: 30px;}
+
+        @media print {
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-shadow: none !important;}
+            body { background: #fff !important; color: #000 !important; }
+            body > * { display: none !important; }
+            body.print-errors-only .main-container,
+            body.print-errors-only .main-container #result-screen,
+            body.print-errors-only .main-container #result-screen #review-list { display: block !important; }
+            body.print-errors-only .main-container { box-shadow: none !important; border: none !important; width: 100% !important; margin: 0 !important; padding: 0 !important; background: #fff !important;}
+            .score-card, .result-actions, header, h3 { display: none !important; }
+            .review-item { border: 1px solid #ccc !important; background: #f9f9f9 !important; page-break-inside: avoid; margin-bottom: 20px !important; padding: 20px !important;}
+            .review-item.is-correct { display: none !important; } 
+            .review-item.is-wrong { border-left: 6px solid #EF4444 !important; }
+            .review-item * { color: #000 !important; text-shadow: none !important;}
+            .explanation-box { background: #eee !important; border-right: 4px solid #666 !important; }
+            .exp-ar { display: block !important; color: #000 !important; }
+            .exp-separator { border-bottom: 1px solid #ccc !important; }
+            body.print-errors-only::before {
+                content: "Smart Revision Report - Errors Only (Mr. Ayman Kamel)";
+                display: block; text-align: center; font-size: 22px; font-weight: bold; margin-bottom: 25px; color: #000;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px 5px; }
+            .main-container { width: 100%; border-radius: 18px;}
+            header { padding: 40px 15px 20px; }
+            .vip-phone { font-size: 14px; padding: 6px 18px; top: 15px; }
+            header img { width: 95px; height: 95px; margin-top: 15px;}
+            header h1 { font-size: 24px; }
+            
+            .time-controls { top: 12px; left: 12px; gap: 6px;}
+            .timer-box { font-size: 14px; height: 38px; padding: 0 12px; }
+            .icon-btn { width: 38px; height: 38px; font-size: 16px; }
+            .eye-care-controls { top: 12px; right: 12px; gap: 6px;}
+
+            .cheer-wrapper { right: 10px; max-width: calc(100vw - 20px); }
+            .cheer-wrapper.show { top: 15px; }
+            .cheer-bubble { padding: 12px 15px; gap: 12px; }
+            .cheer-bubble img { width: 45px; height: 45px; }
+            .cheer-en { font-size: 14px; padding-bottom: 5px; }
+            .cheer-ar { font-size: 13px; padding-top: 5px; }
+
+            .content-body { padding: 25px 18px; }
+            .welcome-card { padding: 30px 18px; }
+            .welcome-card h3 { font-size: 22px; }
+            .avatar-option { font-size: 26px; padding: 10px 14px; }
+            
+            .hud-progress-wrapper { padding: 14px 18px 22px 18px; }
+            .hud-student { font-size: 16px; }
+            .hud-student .avatar-ring { width: 34px; height: 34px; font-size: 18px;}
+            .hud-counter { font-size: 15px; }
+            .hud-avatar-runner { width: 34px; height: 34px; font-size: 17px; right: -17px; }
+            .hud-bar-container { margin-right: 17px; }
+            
+            .station-card { padding: 28px 18px; }
+            .question-text { font-size: var(--q-font-size); gap: 12px; margin-bottom: 25px;}
+            .opt-letter { width: 34px; height: 34px; font-size: 15px; }
+            .opt-text { font-size: 16px; }
+            .option-item { padding: 15px 18px; }
+            
+            .action-btns { flex-direction: column-reverse; gap: 12px; margin-top: 30px;}
+            .btn { width: 100%; font-size: 15px; padding: 16px; }
+            
+            .result-actions { grid-template-columns: 1fr; gap: 12px;}
+            .btn-full { grid-column: span 1; }
+            
+            .score-circle { width: 180px; height: 180px; font-size: 46px; border-width: 8px; box-shadow: 0 0 40px var(--accent-glow), 0 0 0 3px var(--accent); }
+            .result-avatar { width: 55px; height: 55px; font-size: 28px; }
+            .badge-award { font-size: 18px; min-width: 240px; padding: 18px;}
+        }
+    </style>
+</head>
+<body id="main-body" class="theme-1">
+
+<div class="bg-orb"></div>
+<div class="bg-grid"></div>
+
+<!-- 🛡️ Anti-Cheat Modal -->
+<div id="cheat-modal">
+    <div class="cheat-content">
+        <h1>🚨 نظام المراقبة الصامت</h1>
+        <p id="cheat-msg">تم رصد فقدان التركيز والخروج من شاشة التقييم.</p>
+        <button onclick="document.getElementById('cheat-modal').style.display='none'" class="btn btn-outline" style="color:var(--error-color); border-color:var(--error-color); width:100%;">أعتذر، سأحافظ على تركيزي</button>
+    </div>
+</div>
+
+<div class="main-container" id="app-container">
+    <header>
+        <div class="time-controls" id="timer-container" style="display: none;">
+            <div class="timer-box" id="timer-box"><div class="time-dot"></div><span id="timer-text">300:00</span></div>
+            <button type="button" class="icon-btn" id="btn-timer-view" onclick="toggleTimerView()" title="إخفاء الوقت">⏱️</button>
+        </div>
+
+        <div class="eye-care-controls" id="eye-care-container" style="display: none;">
+            <button type="button" class="icon-btn" onclick="changeFontSize(2)" title="تكبير الخط">A+</button>
+            <button type="button" class="icon-btn" onclick="changeFontSize(-2)" title="تصغير الخط">A-</button>
+        </div>
+
+        <!-- 🌟 العبارات التحفيزية بالتنسيق الهندسي المطلوب -->
+        <div class="cheer-wrapper" id="cheer-wrapper">
+            <div class="cheer-bubble">
+                <img src="https://lh3.googleusercontent.com/d/1BqwA44F0BAwWMSwBnBeDIkfkNgBEtif-" alt="Mr. Ayman Kamel">
+                <div class="cheer-text">
+                    <div class="cheer-en" id="cheer-en"></div>
+                    <div class="cheer-separator"></div>
+                    <div class="cheer-ar" id="cheer-ar"></div>
+                </div>
+            </div>
+        </div>
+
+        <img src="https://lh3.googleusercontent.com/d/1BqwA44F0BAwWMSwBnBeDIkfkNgBEtif-" alt="Mr. Ayman Kamel Logo" onclick="triggerEasterEgg()">
+        <h1>Mr. Ayman Kamel</h1>
+        <p class="job-title">English Language Educator</p>
+        <p class="slogan">"Let's learn together!"</p>
+        <div class="vip-phone">📞 01284749899</div>
+    </header>
+
+    <div class="content-body">
+        <div id="start-screen">
+            <div class="welcome-card">
+                <h3>🌟 خطوتك نحو القمة تبدأ هنا!</h3>
+                <p>أنت دلوقتي قدام تحدي مش بيعترف غير بالتركيز المطلق. الأسئلة متصممة عشان تقيس قدرتك على ربط المعاني واستيعاب كل تفصيلة. خليك واثق في نفسك، واقرأ براحتك.. إحنا هنا عشان نحتفل بنجاحك!<br><br>جاهز تثبت جدارتك؟</p>
+            </div>
+
+            <button type="button" id="time-attack-btn" onclick="toggleTimeAttack()">⏳ وضع التحدي السريع (15ث): متوقف</button>
+
+            <h4 style="color: var(--text-main); font-weight: 800; margin-bottom: 18px; text-align: center;">اختار مفتاح العبور بتاعك:</h4>
+            <div class="avatar-grid">
+                <div class="avatar-option selected" onclick="selectAvatar(this, '👑')">👑</div>
+                <div class="avatar-option" onclick="selectAvatar(this, '🛡️')">🛡️</div>
+                <div class="avatar-option" onclick="selectAvatar(this, '🦅')">🦅</div>
+                <div class="avatar-option" onclick="selectAvatar(this, '💎')">💎</div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="studentName" placeholder="اكتب اسمك الثلاثي عشان نبدأ..." autocomplete="off" onkeypress="if(event.key === 'Enter') startQuiz()">
+            </div>
+            <button type="button" class="btn btn-solid" style="width:100%" onclick="startQuiz()">START ASSESSMENT ➔</button>
+        </div>
+
+        <div id="quiz-screen">
+            <div class="hud-progress-wrapper">
+                <div class="hud-stats">
+                    <div class="hud-student">
+                        <div class="avatar-ring" id="hud-avatar">👑</div> <span id="hud-name">--</span>
+                    </div>
+                    <div class="hud-counter" id="progress-count">Q: 1 / 109</div>
+                </div>
+                <div class="hud-bar-container">
+                    <div class="hud-bar-fill" id="energy-bar">
+                        <div class="hud-avatar-runner" id="hud-moving-avatar">👑</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-card" id="q-box">
+                <div class="question-text">
+                    <div class="question-text-wrapper">
+                        <span id="question-text-content">--</span><span class="cursor" id="typing-cursor" style="display:none;"></span>
+                    </div>
+                    <div class="tts-btn-container">
+                        <button type="button" class="icon-btn" style="border-color:var(--accent); color:var(--accent);" onclick="speakQuestion()" title="استماع">🔊</button>
+                    </div>
+                </div>
+                <div class="options-list" id="options-list"></div>
+            </div>
+
+            <div class="action-btns">
+                <button type="button" class="btn btn-prev" id="prev-btn" onclick="prevQuestion()" disabled>⬅ PREV</button>
+                <button type="button" class="btn btn-solid" id="next-btn" onclick="nextQuestion()">NEXT ➔</button>
+                <button type="button" class="btn btn-solid" id="submit-btn" onclick="calculateScore()" style="display: none;">🚀 SUBMIT</button>
+            </div>
+        </div>
+
+        <div id="result-screen">
+            <div class="score-card">
+                <div class="score-circle" id="score-percentage">0 / 0</div>
+                <div id="score-percent-text">Accuracy: 0%</div>
+                <h2 id="student-display-name"></h2>
+                
+                <div class="scratch-container">
+                    <div id="badge-award-box" class="badge-award">اخدش لترى حالتك</div>
+                    <canvas id="scratch-canvas"></canvas>
+                </div>
+                <p id="score-details" style="font-size: 16px; font-weight: 700; margin-top: 25px; color: var(--text-muted);"></p>
+            </div>
+
+            <div class="result-actions">
+                <button type="button" class="btn btn-solid btn-full" id="cert-btn" onclick="downloadCertificate()" style="display: none;">📜 استخراج شهادة النخبة</button>
+                <button type="button" class="btn btn-outline" style="background:rgba(255,255,255,0.05); color:#fff; border-color:rgba(255,255,255,0.2);" onclick="downloadSmartRevision()">📥 تحميل روشتة الأخطاء PDF</button>
+                <button type="button" class="btn btn-outline btn-whatsapp" onclick="shareToTeacherWhatsApp()">👨‍🏫 إرسال التقرير لمستر أيمن</button>
+                <button type="button" class="btn btn-outline btn-whatsapp" onclick="shareToParentWhatsApp()">👨‍👩‍👧 تقرير ولي الأمر (واتساب)</button>
+                <button type="button" class="btn btn-outline" style="color:#00E5FF; border-color:#00E5FF;" onclick="sharePeerChallenge()">🔥 تحدى زميلك (فيرال)</button>
+                <button type="button" class="btn btn-outline" onclick="location.reload()">🔄 إعادة المحاولة</button>
+            </div>
+
+            <h3 style="text-align: right; color: var(--text-main); margin-top: 35px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; font-weight: 900;">📂 المراجعة اللحظية (Smart Revision):</h3>
+            <div id="review-list" style="margin-top: 25px;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxps3pkSIfSFL8rwhCNMlNCEYkeL2ooxYo_6WgWRXHHL0hcY0owu-x0qRtZei0migOyxg/exec";
+
+function tryVibrate(pattern) { if (navigator.vibrate) { try { navigator.vibrate(pattern); } catch(e){} } }
+
+let audioCtx = null;
+function initAudio() {
+    try {
+        if (!audioCtx) { const AudioContext = window.AudioContext || window.webkitAudioContext; if(AudioContext) { audioCtx = new AudioContext(); } }
+        if (audioCtx && audioCtx.state === 'suspended') { audioCtx.resume(); }
+    } catch(e) {}
+}
+function playTone(freq, type, duration) {
+    try {
+        initAudio(); if (!audioCtx) return;
+        let osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
+        osc.type = type; osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(); osc.stop(audioCtx.currentTime + duration);
+    } catch(e) {}
+}
+function soundWrongTime() { tryVibrate([100, 50, 100]); playTone(150, 'sawtooth', 0.3); setTimeout(()=>playTone(100, 'sawtooth', 0.4), 200); }
+function soundBossWin() { tryVibrate([200, 100, 200, 100, 200]); [523, 659, 783, 1046, 1318].forEach((f,i)=> setTimeout(()=>playTone(f,'square',0.15), i*100)); }
+
+function speakQuestion() {
+    if ('speechSynthesis' in window) {
+        let text = quizData[currentQuestion].originalQ.replace(/_+/g, "blank").replace(/\.{3,}/g, "blank");
+        let msg = new SpeechSynthesisUtterance(text); msg.lang = 'en-US'; msg.rate = 0.85;
+        window.speechSynthesis.speak(msg);
+    }
+}
+
+function initScratchCard() {
+    const container = document.getElementById("badge-award-box");
+    const canvas = document.getElementById("scratch-canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = container.offsetWidth; canvas.height = container.offsetHeight;
+    
+    let currentAccent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#FFD700';
+    ctx.fillStyle = '#0A1128'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "bold 18px 'Cairo', sans-serif"; ctx.fillStyle = currentAccent;
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText("🪄 اخدش عشان تشوف نتيجتك", canvas.width/2, canvas.height/2);
+    
+    let isDrawing = false;
+    function scratch(e) {
+        if(!isDrawing) return; e.preventDefault();
+        let rect = canvas.getBoundingClientRect();
+        let x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+        let y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath(); ctx.arc(x, y, 35, 0, Math.PI*2); ctx.fill();
+    }
+    canvas.onmousedown = () => isDrawing = true; canvas.ontouchstart = () => isDrawing = true;
+    canvas.onmouseup = () => isDrawing = false; canvas.ontouchend = () => isDrawing = false;
+    canvas.onmousemove = scratch; canvas.ontouchmove = scratch;
+}
+
+const cheers = [
+    {en: "🚀 Keep pushing forward!", ar: "عاش يا وحش، كمل في طريقك!"},
+    {en: "🧠 Stay focused!", ar: "الله ينور، تركيزك عالي جداً!"},
+    {en: "💪 You're doing great!", ar: "مجهود جبار، متوقفش خالص!"},
+    {en: "🌟 Trust your instincts!", ar: "خليك واثق في إجاباتك، أنت قدها!"},
+    {en: "🛡️ Every step makes you stronger!", ar: "استمر! كل سؤال بيقربك للتقفيل!"},
+    {en: "🔥 Don't give up!", ar: "أوعى تستسلم، هانت جداً يا بطل!"},
+    {en: "🎯 Keep your eyes on the goal!", ar: "عينك على الدرجة النهائية، ركز!"},
+    {en: "🧘 Take a deep breath...", ar: "خد نفس عميق، وكمل برواقة."},
+    {en: "⚡ Your effort matters!", ar: "تعبك وتركيزك ده مستحيل يروح عالفاضي!"}
+];
+let lastCheerIndex = -1; 
+function triggerTeacherCheer() {
+    const wrapper = document.getElementById("cheer-wrapper");
+    let randomIndex; do { randomIndex = Math.floor(Math.random() * cheers.length); } while (randomIndex === lastCheerIndex); 
+    lastCheerIndex = randomIndex;
+    document.getElementById("cheer-en").innerText = cheers[randomIndex].en;
+    document.getElementById("cheer-ar").innerText = cheers[randomIndex].ar;
+    wrapper.classList.add("show"); setTimeout(() => { wrapper.classList.remove("show"); }, 3500);
+}
+
+let logoClicks = 0, logoClickTimer;
+function triggerEasterEgg() {
+    logoClicks++; clearTimeout(logoClickTimer);
+    logoClickTimer = setTimeout(() => { logoClicks = 0; }, 1500);
+    if(logoClicks >= 5) { alert("⚡ Imperial Challenge Easter Egg Found! ⚡"); logoClicks = 0; }
+}
+
+function changeFontSize(change) {
+    const root = document.documentElement;
+    let currentSize = parseInt(getComputedStyle(root).getPropertyValue('--q-font-size')) || 22;
+    let newSize = currentSize + change;
+    if(newSize >= 16 && newSize <= 30) { root.style.setProperty('--q-font-size', newSize + 'px'); }
+}
+
+const rawData = [
+    { q: "My father ........ where he put his keys, so all of us are looking for them.", options: ["had forgotten", "is forgetting", "has forgotten", "has been forgetting"], answer: 3, rule: "Present Perfect Continuous", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Emphasizes recent repeated forgetting causing a current search.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> نسيان متكرر ومستمر مؤخراً أدى لنتيجة في الحاضر (كلنا بنبحث عنهم).</div>" },
+    { q: "My cousins have ........ Assuit since their childhood.", options: ["been in", "been to", "gone to", "gone in"], answer: 0, rule: "Present Perfect States", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'have been in' means living/staying in a place for a period.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> (have been in) تعني الإقامة أو التواجد في مكان لفترة زمنية.</div>" },
+    { q: "Since they ........ acting, they ........ in three plays, a television commercial, and two TV dramas.", options: ["began / are performing", "begin / have performed", "began / had been performing", "began / have performed"], answer: 3, rule: "Since Clause & Present Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Since' + past simple, followed by present perfect for accomplished achievements (three plays).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> قاعدة since بييجي بعدها ماضي بسيط، وجملتها الأساسية مضارع تام عشان ذكر عدد الإنجازات.</div>" },
+    { q: "Ali last caught fish when he was in Alexandria. This means that ........", options: ["Ali didn't catch fish since he was in Alexandria.", "Ali hasn't caught fish since he was in Alexandria.", "Ali didn't catch fish when he was in Alexandria.", "Ali has been catching fish since he returned from Alexandria."], answer: 1, rule: "Present Perfect vs Past Simple", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Last time in the past equates to negative present perfect with 'since'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> آخر مرة اصطاد فيها كانت في الماضي، فبتساوي نفي المضارع التام بـ since.</div>" },
+    { q: "Sorry for being late, Sir. Please, let me in; I ........ the clinic.", options: ["have been to", "have gone to", "had been in", "had gone to"], answer: 0, rule: "Have been to vs Have gone to", exp: "<div class='exp-en'>💡 <b>Explanation:</b> He is back now (let me in), meaning he went and returned ('have been to').</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> طالما بيقول (دخلني) يبقى هو راح ورجع، و(ذهب وعاد) هي have been to.</div>" },
+    { q: "You look scared. ........ anything frightening?", options: ["Had you seen", "Do you see", "Will you see", "Have you seen"], answer: 3, rule: "Present Perfect Experience", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Asking about a recent life experience causing a present state (look scared).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> سؤال عن خبرة أو حدث أثر على شكله الحالي (شكلك مرعوب)، بنستخدم مضارع تام.</div>" },
+    { q: "She ........ to the market. She will be here soon.", options: ["has been", "has gone", "was going", "had been"], answer: 1, rule: "Has gone to", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'She will be here soon' means she hasn't returned yet, so she 'has gone'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> طالما (ستكون هنا قريباً) يبقى هي لسه مرجعتش وهناك حالياً، ودي معناها has gone.</div>" },
+    { q: "It's two weeks since I last ........ Sara.", options: ["phoned", "have phoned", "phone", "had phoned"], answer: 0, rule: "It is + period + since + Past Simple", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Fixed structure: It is [time] since [Past Simple].</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> التركيبة الثابتة: It is (مدة) since بيجي بعدها ماضي بسيط مثبت.</div>" },
+    { q: "So far, many schools ........ in rural and urban areas.", options: ["will have built", "are building", "have been built", "were built"], answer: 2, rule: "Present Perfect Passive", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'So far' indicates present perfect. Schools are built (passive).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> وجود So far بيدل على المضارع التام، والمدارس (بُنيت) يعني مبني للمجهول.</div>" },
+    { q: "Nothing like this ........ to her.", options: ["has ever happened", "has never happened", "has happened", "happened"], answer: 0, rule: "Present Perfect Experience", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Expressing life experience with 'ever' in affirmative structure.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> التعبير عن تجربة حياة مثبتة باستخدام ever مع المضارع التام.</div>" },
+    { q: "Oh! I ........ my mobile phone, what can I do?", options: ["had broken", "broke", "was breaking", "have broken"], answer: 3, rule: "Present Perfect Result", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Recent action with a present consequence (what can I do?).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> حدث حصل حالاً وله تأثير في الحاضر (أعمل إيه دلوقتي؟)، بنستخدم مضارع تام.</div>" },
+    { q: "I ........ my books in the class. Could you go and get them for me?", options: ["had left", "am leaving", "have left", "was leaving"], answer: 2, rule: "Present Perfect Result", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Present result of a past action (they are still there now).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> ساب الكتب وفاسيبين مكانهم لحد دلوقتي (أثر في الحاضر)، مضارع تام.</div>" },
+    { q: "It's a month ........ Hind last visited her uncle.", options: ["of", "for", "ago", "since"], answer: 3, rule: "It is + time + since", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'It is [time] since [Subject] [Past Simple].</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> القاعدة الثابتة بتمشي بـ It is [مدة] since [فاعل] [ماضي بسيط].</div>" },
+    { q: "........ I started my job, I have met important people from all over the world.", options: ["Until", "Since", "When", "For"], answer: 1, rule: "Since as a conjunction", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Since' means 'from the time when' linking past simple and present perfect.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> رابط بيوصل بين الماضي البسيط والمضارع التام بمعنى (منذ أن).</div>" },
+    { q: "It's more than 20 years ........ I traveled abroad.", options: ["since", "when", "before", "while"], answer: 0, rule: "It is + time + since", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'It is [time] since [Past Simple]'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> مرور فترة زمنية منذ حدث معين بيستدعي استخدام since.</div>" },
+    { q: "They ........ what to do for the vacation yet.", options: ["won't decide", "don't decide", "hadn't decided", "haven't decided"], answer: 3, rule: "Yet in Present Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'yet' is used in negative present perfect sentences.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> كلمة yet بتيجي في نهاية جملة المضارع التام المنفية.</div>" },
+    { q: "We ........ our old friends for a year. They are too busy.", options: ["haven't been met", "hadn't met", "haven't met", "didn't meet"], answer: 2, rule: "For with Present Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'for a year' with state/action up to now requires present perfect negative.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> وجود for مع مدة زمنية بيعوز مضارع تام منفي معلوم (haven't met).</div>" },
+    { q: "Magy has been away from the office ........ thirteen successive years.", options: ["during", "from", "for", "since"], answer: 2, rule: "For vs Since", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'thirteen successive years' is a duration of time, taking 'for'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> تلاتة عشر سنة متتالية دي مدة زمنية كاملة، فبتاخد حرف الجر for.</div>" },
+    { q: "The company was fined ........ it had breached safety regulations.", options: ["owing to", "since", "so that", "as the result of"], answer: 1, rule: "Since meaning Because", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Since' can be used as a conjunction meaning 'because' or 'as'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> هنا since بتستخدم بمعنى (لأن أو بما أنّ) لبيان السبب.</div>" },
+    { q: "My father's been quite different ........ coming back from America.", options: ["for", "since", "during", "while"], answer: 1, rule: "Since with gerund/clause", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Since' can precede a gerund phrase indicating the starting point.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> since بيجي بعدها الفعل مضاف له ing كبداية نقطة زمنية في الماضي.</div>" },
+    { q: "Look! What you ........! How can we clean the floor now?", options: ["will do", "has done", "have done", "had done"], answer: 2, rule: "Present Perfect Result", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Action finished with a messy result visible right now.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> أثر مرئي في الحاضر (الأرض متوسخة)، بنعبر عنه بمضارع تام.</div>" },
+    { q: "Lately, people ........ difficulties due to lack of rain.", options: ["have faced", "were facing", "had faced", "will face"], answer: 0, rule: "Lately with Present Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Lately' is a key marker for the present perfect simple.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> كلمة lately ( مؤخراً) من الكلمات الدالة على المضارع التام البسيط.</div>" },
+    { q: "I haven't gone to Luxor ........ a long time.", options: ["in", "until", "since", "for"], answer: 3, rule: "For with periods", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'a long time' is a duration, taking 'for'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> فترة زمنية طويلة (a long time) بتاخد حرف الجر for.</div>" },
+    { q: "We ........ the bus, so we're walking home.", options: ["missed", "have missed", "are missing", "had missed"], answer: 1, rule: "Present Perfect Result", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Past action (missing bus) resulting in walking home now.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> فوتنا الأتوبيس ونتيجة كده ماشيين في البيت، أثر حاضر = مضارع تام.</div>" },
+    { q: "The farmer is furious as he ........ some of his sheep.", options: ["has lost", "lost", "is losing", "will lose"], answer: 0, rule: "Present Perfect State/Result", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Current emotional state (furious) due to a completed loss.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> المزارع غضبان دلوقتي (نتيجة)، لأنه خسر شوية من غنمه (حدث خلص).</div>" },
+    { q: "I ........ all my work. I am free now.", options: ["do", "have done", "have been doing", "am doing"], answer: 1, rule: "Present Perfect Completion", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'I am free now' indicates the work is fully completed (simple perfect).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> طالما أنا فاضي دلوقتي، يبقى الشغل خلص وانتهى تماماً (تام بسيط).</div>" },
+    { q: "I can't do gymnastics because I ........ my leg.", options: ["broke", "had broken", "am breaking", "have broken"], answer: 3, rule: "Present Perfect Result", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Present inability caused by a past accident.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> عجز حاضر (مش قادر ألعب) سببه كسر حصل ولسه أثره موجود، مضارع تام.</div>" },
+    { q: "I ........ Omar for three years—we still meet once a month.", options: ["know", "have been knowing", "have known", "had known"], answer: 2, rule: "Stative Verbs in Present Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Know' is a stative verb, used in simple tense with 'for'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الفعل know من أفعال الحالة ومش بياخد ing، فبنستخدم مضارع تام بسيط.</div>" },
+    { q: "Adel hasn't contacted me since he ........ Cairo.", options: ["has left", "had left", "leaves", "left"], answer: 3, rule: "Since + Past Simple", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Since' is followed by a past simple clause.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> قاعدة since بييجي بعدها جملة في الماضي البسيط (left).</div>" },
+    { q: "Where is Sarah? — She ........ to the dentist's. She'll be back in an hour.", options: ["has been", "has gone", "was going", "had been"], answer: 1, rule: "Has gone to", exp: "<div class='exp-en'>💡 <b>Explanation:</b> She hasn't returned yet (she'll be back in an hour), so 'has gone'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> طالما (ستكون هنا قريباً) يبقى هي لسه مرجعتش وهناك حالياً، ودي معناها has gone.</div>" },
+    { q: "I ........ a single drop of water since I came here this morning.", options: ["wasn't drinking", "don't drink", "haven't drunk", "won't drink"], answer: 2, rule: "Since clause with Present Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Main clause takes present perfect when 'since' introduces past simple.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الجملة الرئيسية بتبقى مضارع تام منفي مع منذ حضرت الصبح.</div>" },
+    { q: "A: Have you finished that report ........? B: No, I still need ten more minutes.", options: ["yet", "already", "never", "ever"], answer: 0, rule: "Yet in questions", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Yet' is used at the end of questions and negative statements.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> في نهاية السؤال، بنستخدم كلمة yet للاستفسار عن إتمام الفعل.</div>" },
+    { q: "Tarek ........ such a difficult exam in his entire life.", options: ["had never had", "has ever had", "chad ever had", "has never had"], answer: 3, rule: "Life experience with Never", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Describing life experience up to now using present perfect with 'never'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الحديث عن تجربة حياة سلبية طوال العمر بيستدعي مضارع تام مع never.</div>" },
+    { q: "Oh! I ........ my passport. What should I do?", options: ["have lost", "lose", "had lost", "am losing"], answer: 0, rule: "Present Perfect Result", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Immediate past action with present dilemma.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> ضيعت الباسبور (حدث حصل وأثره موجود دلوقتي ومسبب مشكلة)، مضارع تام.</div>" },
+    { q: "I haven't seen my cousin since he ........ to London.", options: ["has moved", "had moved", "moved", "was moving"], answer: 2, rule: "Since + Past Simple", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Specific past action point following 'since'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> since بيجي بعدها حدث في الماضي البسيط (moved).</div>" },
+    { q: "We can't go home by bus because the last bus ........ .", options: ["had left", "has just left", "hasn't left", "left"], answer: 1, rule: "Present Perfect with Just", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Recent action ('just left') explaining current inability to take the bus.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الأتوبيس مشي حالا (has just left)، وده مسبب مشكلة حالية.</div>" },
+    { q: "She's grown a lot since I last ........ her.", options: ["see", "have seen", "saw", "had seen"], answer: 2, rule: "Since + Past Simple", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Past simple required after 'since' when specifying a past event.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> نقطة زمنية ماضية بعد since بتاخد ماضي بسيط (saw).</div>" },
+    { q: "A: Another cake? B: No, thanks. I ........ too many already.", options: ["'ve eaten", "'d eaten", "ate", "am eating"], answer: 0, rule: "Already in Present Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'already' highlights completion with present relevance.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> وجود already بيدل على إتمام الحدث في المضارع التام.</div>" },
+    { q: "This is the second time he ........ flown in a private jet.", options: ["had ever", "had never", "has never", "has ever"], answer: 3, rule: "This is the [number] time + Present Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Structure: This is the first/second time + present perfect with 'ever'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> قاعدة This is the second time بيجي بعدها مضارع تام بـ ever.</div>" },
+    { q: "You look very worried. ........ something bad?", options: ["Had you heard", "Have you heard", "Do you hear", "Did you hear"], answer: 1, rule: "Present Perfect for recent news", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Asking about recent news affecting current appearance/mood.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الاستعلام عن أخبار حديثة لها تأثير حالي بيستعمل المضارع التام.</div>" },
+    { q: "We ........ this house since my grandfather built it.", options: ["have owned", "are owning", "have been owning", "had been owning"], answer: 0, rule: "Stative verb ownership", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Own' is a stative verb, taking simple present perfect with 'since'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الفعل own من أفعال الثبات والملكية ولا يقبل الاستمرار (ing).</div>" },
+    { q: "Omar ........ to the market. Let's see what he has bought.", options: ["had been", "has gone", "has been", "will be"], answer: 2, rule: "Has been to", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Let's see what he has bought' implies he returned or went and came back ('has been').</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> طالما هنشوف هو اشترى إيه (معه أشياء)، يبقى هو راح ورجع (has been).</div>" },
+    { q: "Belal is not here. He ........ to the dentist.", options: ["went", "has gone", "had gone", "was going"], answer: 1, rule: "Has gone to", exp: "<div class='exp-en'>💡 <b>Explanation:</b> He is not here now, meaning he went and hasn't returned yet.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> هو مش موجود هنا دلوقتي، فمعناها ذهب ولم يعد (has gone).</div>" },
+    { q: "Most of us can't recognize Ali as he ........ a new haircut.", options: ["had", "had had", "is having", "has had"], answer: 3, rule: "Present Perfect Result", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Completed change with current unrecognizable outcome.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> غير شعره ونتيجة كده مش عارفين نتاكد منه (مضارع تام).</div>" },
+    { q: "Many people have read that novel since it ........ in the 1980s.", options: ["was written", "has written", "wrote", "has been written"], answer: 0, rule: "Passive in Since clause", exp: "<div class='exp-en'>💡 <b>Explanation:</b> The novel was written (passive voice in past simple).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> رواية كُتبت (مبني للمجهول في الماضي البسيط).</div>" },
+    { q: "A: ........ somewhere before? B: Yes, I saw you at the sports club.", options: ["Aren't we meeting", "Hadn't we met", "Haven't we met", "Didn't we meet"], answer: 2, rule: "Present Perfect Question", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Asking about life experience up to now.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> السؤال عن تقابل سابق في الحياة بيتم بالمضارع التام المنفي أو المثبت.</div>" },
+    { q: "Why has nothing ........? Now we are running out of time.", options: ["done yet", "been done yet", "been done still", "never done"], answer: 1, rule: "Present Perfect Passive with Yet", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Passive structure with 'yet' in interrogative.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الجملة مبنية للمجهول ومنفية بـ yet (لم يتم عمل شيء بعد).</div>" },
+    { q: "Food prices ........ sharply in the past few months.", options: ["rise", "have been risen", "had risen", "have risen"], answer: 3, rule: "Present Perfect Active with rise", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Rise is intransitive (doesn't take passive). Present perfect active.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الفعل rise لازم ولا يتعدى لمبني للمجهول، فبنستخدم مضارع تام معلوم.</div>" },
+    { q: "I haven't seen Wael ........ the last time we met in the village.", options: ["while", "when", "for", "since"], answer: 3, rule: "Since with a point in time clause", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Since' can precede a clause describing a past event/time.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> نقطة زمنية ماضية (آخر مرة تقابلنا) بتاخد since.</div>" },
+    { q: "A terrible accident ........ place on the Cairo-Alexandria desert road.", options: ["was taken", "has taken", "has been taken", "had taken"], answer: 1, rule: "Take place (No passive)", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Take place' has no passive form. Recent completed event = present perfect.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> تعبير take place لا يُبنى للمجهول، ووقع حادث حديثاً (مضارع تام).</div>" },
+    { q: "I finished my essay yesterday, but it ........ in to my teacher yet.", options: ["hasn't given", "wasn't given", "hasn't been given", "has given"], answer: 2, rule: "Present Perfect Passive with Yet", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Essay is given (passive) with 'yet' (negative present perfect).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> المقال لم يُسلم (مبني للمجهول منفي مع yet).</div>" },
+    { q: "Mr. Tom ........ the hospital for three weeks now because of his asthma.", options: ["has been in", "was", "has been to", "has gone to"], answer: 0, rule: "Has been in for duration", exp: "<div class='exp-en'>💡 <b>Explanation:</b> State of being inside a place for a duration uses 'has been in'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> التواجد بداخل مكان لفترة زمنية مع مدة (for three weeks) بيتاخد لها has been in.</div>" },
+    { q: "A: Where ........ at three? B: I was at the library.", options: ["have you gone", "was he", "you saw him", "were you"], answer: 3, rule: "Past simple state query", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Answer is in past simple ('I was'), so question asks about past state.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الإجابة في الماضي البسيط (I was)، فالصيغة المناسبة للسؤال هي were you.</div>" },
+    { q: "Our math teacher ........ us a lot of homework last week, but he ........ us very much so far this week.", options: ["gave/hasn't given", "has given/didn't give", "gave/wasn't given", "had given/didn't give"], answer: 0, rule: "Past simple vs Present perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Last week' = past simple (gave). 'so far this week' = present perfect (hasn't given).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> كلمة last week بتطلب ماضي بسيط (gave)، و so far this week بتطلب مضارع تام (hasn't given).</div>" },
+    { q: "Many doctors ........ long hours to care for patients over the years.", options: ["will work", "are working", "has worked", "have worked"], answer: 3, rule: "Present Perfect for over the years", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'over the years' indicates an action spanning from past to present.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> عبارة over the years (على مدار السنين) بتدل على المضارع التام البسيط.</div>" },
+    { q: "Some nurses ........ the same patients for weeks.", options: ["support", "have been supporting", "supported", "will have supporting"], answer: 1, rule: "Present Perfect Continuous for duration", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Action continuing over a period of weeks up to now.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> استمرار رعاية المرضى لأسابيع متواصلة بيستدعي مضارع تام مستمر.</div>" },
+    { q: "Hospitals ........ their emergency systems recently.", options: ["are improving", "improve", "have improved", "will improve"], answer: 2, rule: "Recently with Present Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Recently' is a key indicator of present perfect simple.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> كلمة recently (مؤخراً) من الدلالات الأساسية للمضارع التام.</div>" },
+    { q: "Patients have ........ better care and faster treatment.", options: ["received", "be received", "to receive", "been received"], answer: 0, rule: "Present Perfect Active structure", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Patients receive care (active voice after auxiliary have).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> المرضى (يتلقون) الرعاية، الجملة معلوم وليست مجهول بعد have.</div>" },
+    { q: "Has the manager signed the contracts? The passive form of this sentence is ........", options: ["Had the contracts been signed by the manager?", "Have the contracts signed by the manager?", "Have the contracts been signed by the manager?", "The contracts have been signed by the manager."], answer: 2, rule: "Passive Interrogative Present Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Present perfect question passive structure: Have + object + been + past participle.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> صيغة السؤال بالمبني للمجهول في المضارع التام تبدأ بـ Have + المفعول + been + P.P.</div>" },
+    { q: "My hands are dirty because I ........ in the garden.", options: ["worked", "was working", "have been worked", "have been working"], answer: 3, rule: "Present Perfect Continuous Result", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Present physical evidence of a recent continuous activity.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> أثر مرئي في الحاضر (أيدي متسخة) لعمل استمر في الحديقة، مضارع تام مستمر.</div>" },
+    { q: "The staff ........ new skills and attending training sessions.", options: ["have learnt", "have been learning", "are learnt", "have been learnt"], answer: 1, rule: "Present Perfect Continuous ongoing trend", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Ongoing learning process over a current period.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> عملية التعلم مستمرة وتأخذ وقتاً، فبنستخدم مضارع تام مستمر.</div>" },
+    { q: "Once he ........ home, he will finish his homework.", options: ["has reached", "had reached", "is reaching", "reached"], answer: 0, rule: "Future time clause with Present Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> After time conjunctions (once, when), use present simple or present perfect instead of future.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> بعد روابط المستقبل الزمنية (once)، بنستخدم مضارع بسي أو مضارع تام (has reached).</div>" },
+    { q: "I ........ my classmates for many years now.", options: ["'ve been knowing", "have known", "had been knowing", "had known"], answer: 1, rule: "Stative verb know", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Know' is stative, used in simple present perfect with 'for'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الفعل know من أفعال الحالة ولا يأتي في المستمر، فيستخدم مضارع تام بسيط.</div>" },
+    { q: "He ........ in Alexandria for three years and he still lives there.", options: ["had lived", "is living", "has lived", "was living"], answer: 2, rule: "Present Perfect for continuing state", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Started in past and still continues ('he still lives there').</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> طالما ما زال يعيش هناك حتى الآن، بنعبر عنه بالمضارع التام (has lived).</div>" },
+    { q: "I ........ the new reports since this morning, and I'll complete them tonight.", options: ["'ve been writing", "have written", "had written", "'d been writing"], answer: 0, rule: "Present Perfect Continuous focus on action", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Ongoing task since morning, not yet fully completed.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الكتابة بدأت من الصبح ولسه مكملة (لم تنتهي بالكامل)، بنستخدم مضارع تام مستمر.</div>" },
+    { q: "I feel hot because I ........ for an hour.", options: ["have been running", "am running", "had run", "was running"], answer: 0, rule: "Present Perfect Continuous physical effect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Present feeling (feel hot) resulting from a continuous past activity.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> شعور بالحرارة حالياً نتيجة الجري لفترة مستمرة، مضارع تام مستمر.</div>" },
+    { q: "It ........ for the past 3 hours.", options: ["had rained", "has rained", "was raining", "has been raining"], answer: 3, rule: "Present Perfect Continuous with duration", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Continuous weather action over a duration up to now.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> المطر مستمر بلا انقطاع طوال الثلاث ساعات الماضية (مضارع تام مستمر).</div>" },
+    { q: "People ........ music for thousands of years.", options: ["would be making", "are making", "have been making", "had been making"], answer: 2, rule: "Present Perfect Continuous history/tradition", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Action starting in distant past and continuing up to the present.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> صنع الموسيقى بدأ من آلاف السنين ومستمر حتى اليوم، مضارع تام مستمر.</div>" },
+    { q: "My family haven't ........ been to London before. That is my first time.", options: ["already", "never", "yet", "ever"], answer: 3, rule: "Negative structure with ever", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'ever' fits correctly in a negative present perfect experience structure.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> مع وجود النفي (haven't)، بنستخدم كلمة ever بمعنى (من قبل).</div>" },
+    { q: "How long ........ English? Your accent is absolutely amazing!", options: ["have you been learning", "are you learning", "did you learn", "had you learned"], answer: 0, rule: "How long + Present Perfect Continuous", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Asking about the duration of an ongoing skill-learning process.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> السؤال بـ How long عن مدة تعلم لغة مستمرة بيتطلب مضارع تام مستمر.</div>" },
+    { q: "Which sentence tells us that Tom is still working in the factory?", options: ["Tom worked in that factory for ten years.", "Tom was working in that factory.", "Tom has worked in that factory for ten years.", "Tom used to work in that factory."], answer: 2, rule: "Present Perfect meaning ongoing action", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Present perfect with 'for' indicates an action starting in the past and continuing into the present.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> المضارع التام البسيط مع المدة بيعبر عن حدث بدأ في الماضي وما زال مستمراً حتى الآن.</div>" },
+    { q: "The hall ........ since the last party.", options: ["hasn't decorated", "didn't decorate", "hasn't been decorated", "hadn't been decorated"], answer: 2, rule: "Present Perfect Passive negative", exp: "<div class='exp-en'>💡 <b>Explanation:</b> The hall is decorated (passive), and with 'since' we use present perfect negative.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> القاعة لم تُزين (مبني للمجهول ومنفي مع since)، فنختار hasn't been decorated.</div>" },
+    { q: "Which sentence is grammatically correct?", options: ["I have been knowing him since we were children.", "She has been writing three chapters of her novel so far.", "They have been living in Cairo for ten years; they still love it.", "He has already been finishing his project last night."], answer: 2, rule: "Grammatical Correctness", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Option C correctly uses present perfect continuous for a continuing state/habit.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الجملة C هي الصحيحة نحوياً لاستخدامها المضارع التام المستمر للعيش مع دلالة الاستمرار.</div>" },
+    { q: "Which sentence emphasizes the result or completion of an action rather than its duration?", options: ["I have read the entire report, so I can summarize it for you now.", "She has been applying for jobs since January, but she hasn't had any interviews yet.", "My eyes are tired because I have been reading stories all afternoon.", "They have been arguing about the budget for hours with no end in sight."], answer: 0, rule: "Simple Perfect vs Continuous", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Present perfect simple emphasizes completion ('read the entire report').</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> المضارع التام البسيط بيركز على إتمام الحدث ونتيجته (قراءة التقرير كله).</div>" },
+    { q: "We ........ in Cairo since 2000. We don't intend to leave.", options: ["are living", "live", "have been lived", "have been living"], answer: 3, rule: "Present Perfect Continuous for long residence", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Living in a city over a long period starting in 2000 and continuing.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> السكن في القاهرة بدا من 2000 ولسه مستمر ومش ناويين نمشي (مضارع تام مستمر).</div>" },
+    { q: "A cure for the disease ........ lately.", options: ["was discovered", "has been discovered", "had been discovered", "has discovered"], answer: 1, rule: "Present Perfect Passive with lately", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Lately' takes present perfect passive (cure is discovered).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> كلمة lately بتدل على المضارع التام، والعلاج (اُكتشف) يعني مبني للمجهول.</div>" },
+    { q: "I ........ my keys just now; I'm sure they were on the table a minute ago.", options: ["had lost", "lose", "lost", "have lost"], answer: 2, rule: "Just now with Past Simple", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Just now' refers to a specific finished point in the past, taking past simple.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> تعبير just now (منذ برهة) بيأخذ الماضي البسيط (lost) وليس المضارع التام.</div>" },
+    { q: "It ........ for three hours now. I hope it stops raining.", options: ["has been raining", "is raining", "rains", "has rained"], answer: 0, rule: "Present Perfect Continuous weather duration", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Continuous rain for three hours ending with 'now'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> المطر مستمر بقسوة لمدة 3 ساعات حتى الآن، مضارع تام مستمر.</div>" },
+    { q: "Your face looks pale . You ........ too hard these days.", options: ["worked", "had been working", "cad worked", "have been working"], answer: 3, rule: "Present Perfect Continuous physical effect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Current pale face resulting from working too hard lately ('these days').</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> شحوب الوجه نتيجة الإرهاق المستمر في الأيام الأخيرة، مضارع تام مستمر.</div>" },
+    { q: "A: Why are you sad? B: My mobile phone ........ !", options: ["has been stolen", "has stolen", "was stolen", "is stolen"], answer: 0, rule: "Present Perfect Passive result", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Present sadness because of a recent theft (passive).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الموبايل (اتسرق) وموجود أثر الحزن دلوقتي، مضارع تام مبني للمجهول.</div>" },
+    { q: "He ........ six letters since lunchtime.", options: ["wrote", "is writing", "has written", "has been writing"], answer: 2, rule: "Present Perfect Simple with quantity", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Mentioning quantity ('six letters') requires simple present perfect, not continuous.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> ذكر العدد المنجز (ست خطابات) بيمنع استخدام المستمر ويفرض المضارع التام البسيط.</div>" },
+    { q: "It's not nice of her. I ........ for her all day and hasn't come yet.", options: ["am waiting", "have been waiting", "had waited", "had been waited"], answer: 1, rule: "Present Perfect Continuous for annoyance/duration", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Waiting all day long expressing a continuous action up to now.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الانتظار استغرق اليوم كله ومستمر حتى الآن، بنستخدم مضارع تام مستمر.</div>" },
+    { q: "Nahla has already written an essay and she ........ it out for three hours. Don't interrupt her.", options: ["has been checking", "is checking", "has been checked", "has checked"], answer: 0, rule: "Present Perfect Continuous ongoing task", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Checking the essay is an ongoing process taking 3 hours ('Don't interrupt her').</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> عملية المراجعة لسه شغال فيها بقالها 3 ساعات (ما تقاطعهاش)، مضارع تام مستمر.</div>" },
+    { q: "They ........ that car since 2002.", options: ["have been owning", "own", "owned", "have owned"], answer: 3, rule: "Stative verb own", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Own' is a stative verb, taking simple present perfect with 'since'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الفعل own من أفعال الحالة، فلا يأتي أبداً في المستمر.</div>" },
+    { q: "This is the most difficult exam I've ........ taken.", options: ["never", "since", "ever", "already"], answer: 2, rule: "Superlative + ever", exp: "<div class='exp-en'>💡 <b>Explanation:</b> In superlative structures ('the most difficult'), we use 'ever' in the relative clause.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> صيغة التفضيل (the most...) بتاخد دايماً كلمة ever في جملة المضارع التام.</div>" },
+    { q: "The weather is awful, the wind ........ all day.", options: ["had been blowing", "has been blowing", "has blown", "blew"], answer: 1, rule: "Present Perfect Continuous weather", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Wind blowing continuously all day affecting current weather.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الرياح هبت واشتدت طول اليوم ومستمرة، مضارع تام مستمر.</div>" },
+    { q: "The school rules have hardly ........ been broken by any student this term.", options: ["ever", "never", "yet", "just"], answer: 0, rule: "Hardly ever", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Fixed adverbial phrase: 'hardly ever'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> التعبير الشائع للإللزام والنفي الضمني هو (hardly ever).</div>" },
+    { q: "A: ........ has he been a teacher? B: For 20 years.", options: ["Since when", "For how long", "How many", "Since how long"], answer: 1, rule: "For how long vs Since when", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Answer is 'For 20 years' (duration), so question uses 'For how long' or 'How long'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الإجابة بمدة (For 20 years)، فالسوال المناسب عنها بـ For how long أو How long.</div>" },
+    { q: "My brothers ........ since 8 p.m. yesterday and they haven't woken up yet.", options: ["sleep", "had been sleeping", "are sleeping", "have been sleeping"], answer: 3, rule: "Present Perfect Continuous since past point", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Sleeping started at 8 p.m. yesterday and continues.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> النوم بدأ امبارح الساعة 8 ومستمر لحد دلوقتي (مضارع تام مستمر).</div>" },
+    { q: "Baher ........ this book for over 15 days now.", options: ["is reading", "has read", "has been reading", "read"], answer: 2, rule: "Present Perfect Continuous duration", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Reading process ongoing over a duration of 15 days.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> قراءة الكتاب بتاخد وقت ومستمرة بقالها 15 يوم (مضارع تام مستمر).</div>" },
+    { q: "We ........ for 5 hours. Now, it is time for some rest.", options: ["have driven", "are driving", "drove", "have been driving"], answer: 3, rule: "Present Perfect Continuous result/fatigue", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Driving continuously for 5 hours causing current tiredness.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> القيادة استمرت 5 ساعات وخلصت بإننا تعبانين محتاجين راحة، مضارع تام مستمر.</div>" },
+    { q: "I haven't seen Omar ........ three months ago.", options: ["when", "for", "since", "before"], answer: 2, rule: "Since + ago trap", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Since' + [time] + 'ago' specifies a precise starting point in the past.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> التركيبة الشهيرة (مدة + ago) يسبقها حرف الجر since لتحديد نقطة البداية.</div>" },
+    { q: "Ramy started sailing in 2020 and he's been doing it ever since. The word 'ever since' here means", options: ["since that time", "hardly ever", "just now", "for a short time"], answer: 0, rule: "Vocabulary meaning of ever since", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Ever since' means continuously from that past time onwards.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> معنى تعبير ever since هو (منذ ذلك الوقت وحتى الآن).</div>" },
+    { q: "I ........ since six o'clock, and I'm getting tired.", options: ["'d been working", "'ve been working", "am working", "worked"], answer: 1, rule: "Present Perfect Continuous since past point", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Working started at 6 o'clock and continues, causing current tiredness.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الشغل بدا الساعة 6 ومستمر لحد دلوقتي ومسبب تعب، مضارع تام مستمر.</div>" },
+    { q: "Your eyes are red. ........ onions?", options: ["Are you chopping", "Had you been chopping", "Have you chopped", "Have you been chopping"], answer: 3, rule: "Present Perfect Continuous physical evidence", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Red eyes are present physical evidence of a recent continuous action.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> عيون حمراء كدليل مرئي على تقطيع البصل المستمر مؤخراً، مضارع تام مستمر.</div>" },
+    { q: "This is the best meal I ........ in this restaurant.", options: ["eat", "have ever eaten", "ate", "am eating"], answer: 1, rule: "Superlative + Present Perfect with ever", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Structure: This is the best [noun] I have ever [past participle].</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> صيغة التفضيل (the best meal) بيجي بعدها مضارع تام بـ ever.</div>" },
+    { q: "That's the sixth cup of coffee you ........ today.", options: ["have had", "had", "have been having", "had had"], answer: 0, rule: "Present Perfect Simple with quantity", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Mentioning quantity ('sixth cup') within an unfinished time period ('today') takes simple present perfect.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> ذكر العدد أو الكمية المنجزة اليوم بيستدعي المضارع التام البسيط.</div>" },
+    { q: "He is exhausted because he ........ the garage all morning.", options: ["cleans", "has been cleaning", "has cleaned", "cleaned"], answer: 1, rule: "Present Perfect Continuous exhaustion", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Current exhaustion resulting from an all-morning continuous cleaning activity.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الإرهاق الحاضر سببه التنظيف المستمر طوال الصباح (مضارع تام مستمر).</div>" },
+    { q: "How long ........ for the bus? It's very late today.", options: ["have you waited", "did you wait", "are you waiting", "have you been waiting"], answer: 3, rule: "How long + Present Perfect Continuous", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Asking about the ongoing duration of waiting.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> السؤال عن مدة الانتظار المستمرة حتى اللحظة بيتطلب مضارع تام مستمر.</div>" },
+    { q: "Prices ........ sharply over the past six months.", options: ["have been risen", "have risen", "rose", "were rising"], answer: 1, rule: "Present Perfect active with rise", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Prices have risen (active, intransitive verb). Over past six months = present perfect.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الأسعار ارتفعت (فعل لازم بدون مجهول) خلال الست أشهر الماضية (مضارع تام).</div>" },
+    { q: "It's a month since I last ........ shopping.", options: ["had gone", "have gone", "went", "go"], answer: 2, rule: "Since clause uses Past Simple", exp: "<div class='exp-en'>💡 <b>Explanation:</b> The clause following 'since' in this structure takes the past simple tense.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> جملة since في هذه التركيبة تأتي في الماضي البسيط (went).</div>" },
+    { q: "I ........ this book since 9 a.m. but I haven't finished it yet.", options: ["have been read", "have been reading", "read", "have read"], answer: 1, rule: "Present Perfect Continuous incomplete action", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Reading started at 9 a.m. and is still continuing (not finished yet).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> القراءة بدأت 9 الصبح ولسه مكملة ومخلصتش كتاب لحد دلوقتي (مضارع تام مستمر).</div>" },
+    { q: "Why is the floor wet? ........ it?", options: ["Have someone washed", "Had someone been washing", "Is someone washing", "Has someone been washing"], answer: 3, rule: "Present Perfect Continuous question for evidence", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Inquiring about a continuous past action causing a wet floor.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الاستفسار عن سبب أثر البلل في الأرضية بفعل مستمر (مضارع تام مستمر).</div>" },
+    { q: "I think she ........ enough — Don't wake her up.", options: ["has been sleeping", "hasn't slept", "hasn't been slept", "has slept"], answer: 3, rule: "Present Perfect Result of sleeping", exp: "<div class='exp-en'>💡 <b>Explanation:</b> She has slept enough (completed state affecting present advice).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> نامت بما فيه الكفاية (نتيجة اكتملت وتمنعنا من إيقاظها)، مضارع تام.</div>" },
+    { q: "He ........ all night long. Now he is totally exhausted and ........ to sleep.", options: ["has been driving/wants", "has driven/wants", "was driving/wants", "has been driving/is wanting"], answer: 0, rule: "Continuous action + stative verb want", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'All night long' takes present perfect continuous. 'Want' is stative (simple present).</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> طوال الليل بتطلب مضارع تام مستمر، وفعل want من أفعال الحالة في المضارع البسيط.</div>" },
+    { q: "Which sentence is in the correct form in the present perfect tense?", options: ["She has went to the library already.", "They have finished their homework recently.", "He has been visiting Paris three times now.", "We have not just seen that movie."], answer: 1, rule: "Grammatically correct present perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Option B correctly uses 'have finished' with 'recently'.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> الجملة B هي الصحيحة نحوياً لاستخدامها المضارع التام البسيط مع recently بشكل صحيح.</div>" },
+    { q: "........ has he had this smart phone?", options: ["When", "Since how long", "Since when", "For when"], answer: 2, rule: "Since when question", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Since when' is used to ask about the starting point of a present perfect state.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> السؤال عن نقطة البداية للمضارع التام بيتم بـ (Since when).</div>" },
+    { q: "Since ........ in Saudi Arabia, Belal has had over 15 job interviews.", options: ["arriving", "arrived", "has arrived", "arrive"], answer: 0, rule: "Since with gerund", exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'Since' can be followed directly by a gerund (-ing) when the subject is the same.</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> since بيجي بعدها الفعل مضاف له ing لو مفيش فاعل بعد حرف الجر.</div>" },
+    { q: "It was the first time I ........ in an airplane, and I was both nervous and excited.", options: ["had never flown", "have been flying", "have ever flown", "had ever flown"], answer: 3, rule: "It was the first time + Past Perfect", exp: "<div class='exp-en'>💡 <b>Explanation:</b> Past tense introductory clause ('It was') requires past perfect in the relative clause ('had ever flown').</div><div class='exp-separator'></div><div class='exp-ar'>✨ <b>الخلاصة:</b> وجود صيغة الماضي (It was the first time) بيفرض استخدام الماضي التام (had ever flown).</div>" }
+];
+
+let quizData = [];
+let currentQuestion = 0, userAnswers = {}, studentName = "", selectedAvatar = '👑';
+let totalSeconds = 18000, qTimeLeft = 15, timerInterval = null, isTimeAttack = false;
+let isSubmitting = false; 
+
+let cheatWarnings = 0;
+const MAX_WARNINGS = 3;
+
+document.addEventListener("visibilitychange", () => {
+    const quizScreen = document.getElementById("quiz-screen");
+    if (document.hidden && quizScreen.style.display === "block" && !isSubmitting) {
+        cheatWarnings++;
+        if (cheatWarnings > MAX_WARNINGS) {
+            alert("🚨 SYSTEM OVERRIDE: تم سحب الورقة لعدم الالتزام ببروتوكول التركيز.");
+            calculateScore(); 
+        } else {
+            document.getElementById('cheat-msg').innerText = `تم رصد خروجك من النظام.\nالتحذير (${cheatWarnings} من ${MAX_WARNINGS}).\nفي المرة الرابعة سيتم سحب الورقة إجبارياً.`;
+            document.getElementById('cheat-modal').style.display = 'flex';
+            soundWrongTime();
+        }
+    }
+});
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || (e.ctrlKey && e.key === 'U') || (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'x'))) e.preventDefault();
+});
+document.addEventListener('copy', e => e.preventDefault()); document.addEventListener('paste', e => e.preventDefault()); document.addEventListener('cut', e => e.preventDefault());
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+function initQuizData() {
+    let tempArray = JSON.parse(JSON.stringify(rawData));
+    shuffleArray(tempArray);
+    
+    quizData = tempArray.map((item, index) => {
+        let correctText = item.options[item.answer];
+        shuffleArray(item.options);
+        return {
+            originalQ: item.q,
+            q: `${index + 1}. ` + item.q.replace(/^\d+\.\s*/, ''),
+            options: item.options,
+            answer: item.options.indexOf(correctText),
+            exp: item.exp,
+            rule: item.rule || "General Grammar"
+        };
+    });
+}
+
+function updateChromaShift() {
+    let levelIndex = Math.floor(currentQuestion / 15); 
+    if(levelIndex > 4) levelIndex = 4;
+    document.body.className = `theme-${levelIndex + 1}`;
+}
+
+function toggleTimeAttack() {
+    isTimeAttack = !isTimeAttack;
+    const btn = document.getElementById("time-attack-btn");
+    if(isTimeAttack) {
+        btn.classList.add("active"); btn.innerText = "⏳ وضع التحدي السريع (15ث): مُفعّل 🔥";
+    } else {
+        btn.classList.remove("active"); btn.innerText = "⏳ وضع التحدي السريع (15ث): متوقف";
+    }
+}
+
+function selectAvatar(el, avatar) {
+    document.querySelectorAll('.avatar-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected'); selectedAvatar = avatar;
+}
+
+function toggleTimerView() { document.getElementById("timer-text").classList.toggle("hidden-timer"); }
+
+function startQuiz() {
+    const input = document.getElementById("studentName").value.trim();
+    if (!input) { alert("أدخل هويتك لبدء التحدي!"); return; }
+    studentName = input; 
+    
+    initQuizData(); 
+    
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("quiz-screen").style.display = "block";
+    document.getElementById("timer-container").style.display = "flex";
+    document.getElementById("eye-care-container").style.display = "flex";
+    
+    document.getElementById("hud-avatar").innerText = selectedAvatar;
+    document.getElementById("hud-name").innerText = studentName;
+    document.getElementById("hud-moving-avatar").innerText = selectedAvatar;
+
+    startTimer(); loadQuestion();
+}
+
+let typeInterval;
+function loadQuestion() {
+    updateChromaShift();
+
+    if(isTimeAttack) { qTimeLeft = 15; document.getElementById("timer-box").classList.remove("danger"); }
+
+    const item = quizData[currentQuestion];
+    const optionsList = document.getElementById("options-list");
+    
+    clearInterval(typeInterval);
+    optionsList.classList.remove("show-options");
+    optionsList.innerHTML = "";
+
+    item.options.forEach((opt, oIndex) => {
+        const div = document.createElement("div"); div.className = "option-item";
+        if (userAnswers[currentQuestion] === oIndex) div.classList.add("selected");
+        const letter = String.fromCharCode(65 + oIndex);
+        div.innerHTML = `<div class="opt-letter">${letter}</div> <div class="opt-text" style="direction: ltr;">${opt}</div>`;
+        div.onclick = () => selectOption(oIndex);
+        optionsList.appendChild(div);
+    });
+
+    document.getElementById("question-text-content").innerText = item.q;
+    optionsList.classList.add("show-options");
+
+    document.getElementById("progress-count").innerText = `Q: ${currentQuestion + 1} / ${quizData.length}`;
+    document.getElementById("energy-bar").style.width = `${Math.round(((currentQuestion + 1) / quizData.length) * 100)}%`;
+
+    document.getElementById("prev-btn").disabled = currentQuestion === 0;
+    if(isTimeAttack) document.getElementById("prev-btn").style.display = "none";
+
+    document.getElementById("next-btn").style.display = (currentQuestion === quizData.length - 1) ? "none" : "inline-flex";
+    document.getElementById("submit-btn").style.display = (currentQuestion === quizData.length - 1) ? "inline-flex" : "none";
+}
+
+function selectOption(oIndex) {
+    userAnswers[currentQuestion] = oIndex;
+    const optionsList = document.getElementById("options-list");
+    Array.from(optionsList.children).forEach((child, i) => {
+        if(i === oIndex) child.classList.add("selected"); else child.classList.remove("selected");
+    });
+}
+
+function nextQuestion(force = false) {
+    if (!force && userAnswers[currentQuestion] === undefined) { alert("لازم تختار إجابة الأول عشان تكمل!"); return; }
+    if (currentQuestion < quizData.length - 1) { 
+        currentQuestion++;
+        if (currentQuestion % 4 === 0 && currentQuestion !== 0) triggerTeacherCheer();
+        loadQuestion();
+    }
+}
+
+function prevQuestion() { if (currentQuestion > 0) { currentQuestion--; loadQuestion(); } }
+
+function startTimer() {
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        if(isTimeAttack) {
+            qTimeLeft--;
+            document.getElementById("timer-text").innerText = `00:${qTimeLeft<10?'0'+qTimeLeft:qTimeLeft}`;
+            if (qTimeLeft <= 5) {
+                document.getElementById("timer-box").classList.add("danger");
+                document.getElementById("app-container").classList.add("shake-active");
+                setTimeout(()=> document.getElementById("app-container").classList.remove("shake-active"), 400);
+            } else { document.getElementById("timer-box").classList.remove("danger"); }
+            
+            if (qTimeLeft <= 0) {
+                if(userAnswers[currentQuestion] === undefined) { userAnswers[currentQuestion] = -1; }
+                if(currentQuestion < quizData.length - 1) {
+                    nextQuestion(true);
+                } else {
+                    calculateScore(); 
+                }
+            }
+        } else {
+            totalSeconds--;
+            let m = Math.floor(totalSeconds / 60), s = totalSeconds % 60;
+            document.getElementById("timer-text").innerText = `${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
+            if (totalSeconds <= 300) document.getElementById("timer-box").classList.add("danger");
+            if (totalSeconds <= 0) { clearInterval(timerInterval); calculateScore(); }
+        }
+    }, 1000);
+}
+
+function calculateScore() {
+    if(isSubmitting) return; 
+    isSubmitting = true;
+
+    try {
+        clearInterval(timerInterval);
+        
+        document.getElementById("quiz-screen").style.display = "none";
+        document.getElementById("timer-container").style.display = "none";
+        document.getElementById("eye-care-container").style.display = "none";
+        document.getElementById("result-screen").style.display = "block";
+        window.scroll({ top: 0, left: 0 });
+
+        let score = 0; 
+        const reviewList = document.getElementById("review-list"); 
+        if(reviewList) reviewList.innerHTML = "";
+
+        let wrongAnswersHTML = "";
+        let ruleMistakes = {};
+
+        quizData.forEach((item, index) => {
+            const isCorrect = userAnswers[index] === item.answer;
+            if (isCorrect) {
+                score++;
+            } else {
+                ruleMistakes[item.rule] = (ruleMistakes[item.rule] || 0) + 1;
+            }
+            
+            let userOptText = "لم يتم الحل ❌";
+            if (userAnswers[index] !== undefined && userAnswers[index] !== -1) {
+                userOptText = item.options[userAnswers[index]];
+            }
+            const correctOpt = item.options[item.answer];
+
+            if (!isCorrect) {
+                wrongAnswersHTML += `<div style="margin-bottom:15px; border-bottom:1px solid #ddd; padding-bottom:10px; direction: rtl; text-align: right;">
+                    <b style="direction: ltr; display: block; text-align: left;">Q: ${item.originalQ}</b><br>
+                    <span style="color:red;">إجابة الطالب: <span style="direction:ltr; display:inline-block;">${userOptText}</span></span><br>
+                    <span style="color:green;">الإجابة الصحيحة: <span style="direction:ltr; display:inline-block;">${correctOpt}</span></span><br>
+                    <div style="margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 8px;">
+                        ${item.exp}
+                    </div>
+                    <small style="display:block; margin-top:8px; color:#555;">📌 القاعدة: ${item.rule}</small>
+                </div>`;
+            }
+
+            const div = document.createElement("div");
+            div.className = `review-item ${isCorrect ? 'is-correct is-correct-item' : 'is-wrong is-wrong-item'}`;
+            div.innerHTML = `<div style="font-weight:800;font-size:16px;margin-bottom:8px; direction: ltr; color: var(--text-main);">${item.q}</div>
+                <div style="direction: rtl; color: var(--text-muted);">إجابتك: <b style="color:${isCorrect?'var(--success-color)':'var(--error-color)'}; direction: ltr; display: inline-block;">${userOptText}</b></div>
+                ${!isCorrect ? `<div style="color:var(--success-color);font-weight:800;margin-top:4px; direction: rtl;">الإجابة الصحيحة: <span style="direction: ltr; display: inline-block;">${correctOpt}</span></div>` : ''}
+                <div class="explanation-box">${item.exp}</div>`;
+            if(reviewList) reviewList.appendChild(div);
+        });
+
+        const percent = Math.round((score / quizData.length) * 100);
+        window.finalScore = score; window.finalPercent = percent;
+
+        let weakestRule = "لا يوجد أخطاء 🏆";
+        let maxMistakes = 0;
+        for (let r in ruleMistakes) {
+            if (ruleMistakes[r] > maxMistakes) {
+                maxMistakes = ruleMistakes[r];
+                weakestRule = r;
+            }
+        }
+        if(wrongAnswersHTML === "") wrongAnswersHTML = "الطالب قفل التقييم بامتياز! مفيش ولا غلطة 🏆";
+
+        document.body.className = "theme-1"; 
+        
+        document.getElementById("student-display-name").innerHTML = `<span class="result-avatar">${selectedAvatar}</span> ${studentName}`;
+        document.getElementById("score-percentage").innerText = `${score} / ${quizData.length}`;
+        document.getElementById("score-percent-text").innerText = `Accuracy: ${percent}%`;
+        
+        let modTxt = isTimeAttack ? " (Time Attack 🔥)" : "";
+        document.getElementById("score-details").innerText = `تم إنهاء التقييم بنجاح! ${modTxt}`;
+
+        let badge = percent >= 90 ? "👑 النخبة (Elite)" : percent >= 75 ? "🔥 أداء متميز (Pro)" : "🌱 محاولة مبشرة (Challenger)";
+        document.getElementById("badge-award-box").innerText = badge;
+        
+        if (percent >= 80) document.getElementById("cert-btn").style.display = "inline-flex";
+
+        setTimeout(() => {
+            try { soundBossWin(); } catch(e){}
+            try { initScratchCard(); } catch(e){}
+            try {
+                let confColor = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#FFD700';
+                if (percent >= 80 && typeof confetti === 'function') confetti({ particleCount: 300, spread: 150, origin: { y: 0.6 }, colors: ['#0A1128', confColor, '#FFFFFF'] });
+            } catch(e){}
+            
+            try {
+                let usedTime = isTimeAttack ? "Time Attack" : (18000 - totalSeconds) + "s";
+                let payload = new URLSearchParams({
+                    examName: "Imperial English Challenge (109 Qs)",
+                    studentName: studentName,
+                    score: `${score} / ${quizData.length}`,
+                    percentage: percent,
+                    date: new Date().toLocaleString('en-GB'),
+                    timeSpent: usedTime,
+                    wrongAnswers: wrongAnswersHTML,
+                    cheatWarnings: cheatWarnings,
+                    weakestRule: weakestRule
+                });
+
+                fetch(SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: payload
+                }).catch(err => console.log("Script sync error:", err));
+            } catch(e){}
+        }, 100);
+
+    } catch(e) { console.error("Error:", e); alert("حدث خطأ تقني أثناء معالجة النتيجة."); }
+}
+
+function shareToParentWhatsApp() {
+    let txt = `👨‍👩‍👧 تقرير أداء - التحدي الإمبراطوري\n👤 الطالب: ${studentName}\n📊 النسبة: ${finalPercent}%\n✨ تحت إشراف مستر أيمن كامل.`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`, '_blank');
+}
+function shareToTeacherWhatsApp() {
+    let txt = `👨‍🏫 تقرير تسليم - التحدي الإمبراطوري\n👤 الطالب: ${studentName}\n🎯 الدرجة: ${finalScore} / ${quizData.length}\n📊 النسبة: ${finalPercent}%`;
+    window.open(`https://wa.me/201284749899?text=${encodeURIComponent(txt)}`, '_blank');
+}
+function sharePeerChallenge() {
+    let txt = `🔥 أنا جبت ${finalPercent}% في التحدي القوي لمستر أيمن كامل! تقدر تكسر السكور بتاعي؟ 🚀`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`, '_blank');
+}
+
+function downloadSmartRevision() {
+    document.body.classList.add('print-errors-only');
+    window.print();
+    setTimeout(() => { document.body.classList.remove('print-errors-only'); }, 500);
+}
+
+function downloadCertificate() {
+    const canvas = document.createElement('canvas'); canvas.width = 1000; canvas.height = 700; const ctx = canvas.getContext('2d');
+    let accent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#FFD700';
+
+    ctx.fillStyle = '#0A1128'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.save(); ctx.translate(canvas.width / 2, canvas.height / 2); ctx.rotate(-Math.PI / 6);
+    ctx.globalAlpha = 0.05; ctx.font = "bold 110px 'Outfit'"; ctx.fillStyle = accent;
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText("MR. AYMAN KAMEL", 0, -60); ctx.fillText("ELITE CHALLENGER", 0, 70); ctx.restore();
+
+    ctx.strokeStyle = accent; ctx.lineWidth = 10; ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+    ctx.globalAlpha = 0.3; ctx.lineWidth = 3; ctx.strokeRect(42, 42, canvas.width - 84, canvas.height - 84); ctx.globalAlpha = 1.0;
+
+    ctx.textAlign = "center"; ctx.fillStyle = accent; ctx.font = "bold 45px 'Outfit'";
+    ctx.fillText("👑 Imperial Certificate of Mastery 👑", canvas.width / 2, 120);
+
+    ctx.fillStyle = "#CBD5E1"; ctx.font = "30px 'Outfit'";
+    ctx.fillText("This prestigious document is awarded to the elite student:", canvas.width / 2, 220);
+
+    ctx.fillStyle = "#FFFFFF"; ctx.font = "bold 65px 'Cairo'";
+    ctx.fillText(studentName, canvas.width / 2, 320);
+
+    ctx.fillStyle = "#CBD5E1"; ctx.font = "25px 'Outfit'";
+    ctx.fillText(`For successfully bypassing the Challenge with an accuracy of`, canvas.width / 2, 420);
+
+    ctx.fillStyle = "#10B981"; ctx.font = "bold 55px 'Outfit'";
+    ctx.fillText(`${finalScore} / ${quizData.length}  (${finalPercent}%)`, canvas.width / 2, 500);
+
+    ctx.fillStyle = accent; ctx.font = "22px 'Outfit'";
+    ctx.fillText("System Architect: Mr. Ayman Kamel", canvas.width / 2, 600);
+    
+    let d = new Date(); ctx.font = "18px 'Outfit'";
+    ctx.fillText("Issue Date: " + d.toLocaleDateString('en-GB'), canvas.width / 2, 640);
+
+    ctx.globalAlpha = 0.6; ctx.textAlign = "left"; ctx.font = "16px 'Outfit'";
+    ctx.fillText("ID: IMP-" + d.getFullYear() + "-" + Math.floor(Math.random()*90000+10000), 55, 655);
+    ctx.globalAlpha = 1.0;
+
+    const link = document.createElement('a'); link.download = `Elite_Mastery_${studentName}.png`;
+    link.href = canvas.toDataURL('image/png'); link.click();
+}
+</script>
+</body>
+</html>
